@@ -3,164 +3,204 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard - ThokBazaar B2B</title>
+  <title>Dashboard - DevPortal B2B</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col justify-between font-sans relative">
-
-  <!-- 1-Second Page Transition Loader -->
-  <div id="loadingOverlay" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex flex-col items-center justify-center z-50">
-    <div class="w-10 h-10 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin mb-3"></div>
-    <p class="text-xs font-mono text-slate-300">Loading module environment...</p>
-  </div>
-
-  <!-- Plan Restriction Modal -->
-  <div id="planRestrictionModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-    <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-md w-full p-6 text-center space-y-4 shadow-2xl">
-      <div class="w-12 h-12 bg-amber-500/20 text-amber-400 border border-amber-500/30 rounded-full flex items-center justify-center mx-auto">
-        <i data-lucide="lock" class="w-6 h-6"></i>
-      </div>
-      <h3 class="text-lg font-bold text-white">Feature Locked</h3>
-      <p class="text-sm text-slate-300 leading-relaxed bg-slate-900/60 p-3 rounded-lg border border-slate-700/50">
-        You are not applicable to use this as per your purchased plan. Please upgrade your active package.
-      </p>
-      <button onclick="closePlanModal()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2.5 rounded-lg text-sm transition">
-        Acknowledge & Close
-      </button>
-    </div>
-  </div>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col justify-between font-sans">
 
   <!-- Top Navigation Bar -->
-  <header class="bg-slate-800 border-b border-slate-700 p-4 sticky top-0 z-40">
-    <div class="max-w-6xl mx-auto flex justify-between items-center px-2 md:px-4">
+  <header class="bg-slate-800 border-b border-slate-700 p-4 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto flex justify-between items-center px-4">
       <div class="flex items-center gap-6">
         <div class="flex items-center gap-2">
           <i data-lucide="shield-check" class="text-indigo-400 w-6 h-6"></i>
-          <span class="font-bold text-white text-lg tracking-wide">ThokBazaar</span>
+          <span class="font-bold text-white text-lg">DevPortal</span>
         </div>
         <nav class="hidden md:flex items-center gap-6 text-sm">
-          <a href="#" onclick="navigateTab('dashboard.html')" class="text-indigo-400 font-medium border-b-2 border-indigo-500 pb-1">Dashboard</a>
-          <a href="#" onclick="navigateTab('catalog.html')" class="text-slate-300 hover:text-white transition">API & Infrastructure Store</a>
-          <a href="#" onclick="clickDummyTab('Vendor Management')" class="text-slate-400 hover:text-white transition">Vendor Management</a>
-          <a href="#" onclick="clickDummyTab('System Logs')" class="text-slate-400 hover:text-white transition">System Logs</a>
-          <a href="#" onclick="clickDummyTab('Reports')" class="text-slate-400 hover:text-white transition">Reports</a>
+          <a href="#" onclick="switchTab(event, 'dashboard')" class="text-indigo-400 font-medium">Dashboard</a>
+          <a href="#" onclick="switchTab(event, 'catalog')" class="text-slate-300 hover:text-white transition">API & Infrastructure Store</a>
+          <a href="#" onclick="switchTab(event, 'locked')" class="text-slate-300 hover:text-white transition">Vendor Management</a>
+          <a href="#" onclick="switchTab(event, 'locked')" class="text-slate-300 hover:text-white transition">System Logs</a>
         </nav>
       </div>
       <div class="flex items-center gap-3">
-        <span class="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2.5 py-1 rounded-full hidden sm:inline-block">Client: thokbazaar40@gmail.com</span>
-        <a href="#" onclick="navigateTab('index.html')" class="text-xs bg-slate-700 hover:bg-slate-600 px-3 py-1.5 rounded text-slate-200 transition">Logout</a>
+        <span class="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2.5 py-1 rounded-full">Server Status: Online</span>
+        <a href="index.html" class="text-xs bg-slate-700 hover:bg-slate-600 px-3 py-1.5 rounded transition text-slate-300">Logout</a>
       </div>
     </div>
   </header>
 
-  <!-- Mobile Nav Sub-bar -->
-  <div class="md:hidden bg-slate-800/80 border-b border-slate-700 p-2 px-4 flex justify-between text-xs overflow-x-auto">
-    <a href="#" onclick="navigateTab('dashboard.html')" class="text-indigo-400 font-bold whitespace-nowrap">Dashboard</a>
-    <a href="#" onclick="navigateTab('catalog.html')" class="text-slate-300 whitespace-nowrap">API Store</a>
-    <a href="#" onclick="clickDummyTab('Vendor Management')" class="text-slate-400 whitespace-nowrap">Vendors</a>
-    <a href="#" onclick="clickDummyTab('Logs')" class="text-slate-400 whitespace-nowrap">Logs</a>
+  <!-- Offer Ticker Bar -->
+  <div class="bg-gradient-to-r from-amber-600 via-rose-600 to-amber-600 text-white text-center py-2 px-4 text-xs font-bold flex items-center justify-center gap-2 shadow-lg">
+    <i data-lucide="zap" class="w-4 h-4 animate-bounce"></i>
+    <span>FLASH SALE: 20% DISCOUNT ON ALL API LICENSES ENDS TONIGHT AT MIDNIGHT!</span>
+    <span class="bg-black/30 font-mono px-2 py-0.5 rounded" id="navTimer">00h 00m 00s</span>
+  </div>
+
+  <!-- Loading Spinner Overlay -->
+  <div id="loadingOverlay" class="hidden fixed inset-0 bg-black/80 flex flex-col items-center justify-center z-50">
+    <div class="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+    <p class="text-sm text-slate-300 mt-4 font-medium">Loading platform node...</p>
   </div>
 
   <!-- Main Dashboard Content -->
-  <main class="max-w-6xl mx-auto w-full p-4 md:p-6 space-y-6 my-2 flex-1">
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+  <main class="max-w-6xl mx-auto w-full p-4 md:p-6 space-y-6 my-4">
+    <div class="flex justify-between items-center">
       <div>
-        <h1 class="text-2xl font-bold text-white">Client Portal Overview</h1>
-        <p class="text-xs text-slate-400 mt-1">Primary B2B infrastructure console for <strong>thokbazaar40@gmail.com</strong></p>
+        <h1 class="text-2xl font-bold text-white">Platform Overview</h1>
+        <p class="text-xs text-slate-400 mt-1">Manage your multi-vendor B2B website backend and API configurations.</p>
       </div>
-      <a href="#" onclick="navigateTab('catalog.html')" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2.5 px-4 rounded-lg text-sm flex items-center gap-2 transition shadow-lg shadow-indigo-600/20">
+      <a href="catalog.html" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2.5 px-4 rounded-lg text-sm flex items-center gap-2 transition shadow-lg">
         <i data-lucide="shopping-cart" class="w-4 h-4"></i> Purchase Required APIs
       </a>
     </div>
 
-    <!-- Status Cards -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <!-- Quick Stats Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
       <div class="bg-slate-800 border border-slate-700 p-4 rounded-xl">
-        <div class="flex justify-between items-center text-slate-400 text-xs">
-          <span>Active Vendors</span>
-          <i data-lucide="users" class="w-4 h-4 text-indigo-400"></i>
-        </div>
-        <h3 class="text-2xl font-bold text-white mt-2">0</h3>
-        <span class="text-xs text-amber-400 mt-1 inline-block">Pending Core Modules</span>
+        <p class="text-xs text-slate-400">Registered Vendors</p>
+        <h3 class="text-2xl font-bold text-white mt-1">0</h3>
+        <span class="text-xs text-amber-400 mt-2 inline-block">Pending Deployment</span>
       </div>
-
       <div class="bg-slate-800 border border-slate-700 p-4 rounded-xl">
-        <div class="flex justify-between items-center text-slate-400 text-xs">
-          <span>Purchased APIs</span>
-          <i data-lucide="layers" class="w-4 h-4 text-indigo-400"></i>
-        </div>
-        <h3 class="text-2xl font-bold text-white mt-2">0 / 10</h3>
-        <span class="text-xs text-rose-400 mt-1 inline-block">Infrastructure Incomplete</span>
+        <p class="text-xs text-slate-400">Active API Modules</p>
+        <h3 class="text-2xl font-bold text-white mt-1">0 / 10</h3>
+        <span class="text-xs text-rose-400 mt-2 inline-block">Infrastructure Incomplete</span>
       </div>
-
       <div class="bg-slate-800 border border-slate-700 p-4 rounded-xl">
-        <div class="flex justify-between items-center text-slate-400 text-xs">
-          <span>Payment Node</span>
-          <i data-lucide="credit-card" class="w-4 h-4 text-indigo-400"></i>
-        </div>
-        <h3 class="text-lg font-bold text-slate-300 mt-2">Unconfigured</h3>
-        <span class="text-xs text-slate-400 mt-1 inline-block">Requires Gateway API</span>
+        <p class="text-xs text-slate-400">Gateway Status</p>
+        <h3 class="text-xl font-bold text-slate-300 mt-1">Not Linked</h3>
+        <span class="text-xs text-slate-400 mt-2 inline-block">Configure in Store</span>
       </div>
-
       <div class="bg-slate-800 border border-slate-700 p-4 rounded-xl">
-        <div class="flex justify-between items-center text-slate-400 text-xs">
-          <span>Deployment Environment</span>
-          <i data-lucide="server" class="w-4 h-4 text-indigo-400"></i>
-        </div>
-        <h3 class="text-lg font-bold text-emerald-400 mt-2">Staging Active</h3>
-        <span class="text-xs text-emerald-400 mt-1 inline-block">Ready to Activate</span>
+        <p class="text-xs text-slate-400">System Environment</p>
+        <h3 class="text-xl font-bold text-indigo-400 mt-1">Staging / Test</h3>
+        <span class="text-xs text-emerald-400 mt-2 inline-block">Ready to Deploy</span>
       </div>
     </div>
 
-    <!-- Notice Card -->
-    <div class="bg-gradient-to-r from-indigo-950/80 to-slate-800 border border-indigo-900/50 p-6 rounded-2xl space-y-3">
-      <div class="flex items-center gap-2 text-indigo-400 font-semibold">
-        <i data-lucide="alert-circle" class="w-5 h-5"></i>
-        <span>Action Required: Deploy Core B2B Modules</span>
+    <!-- 20% Offer Banner -->
+    <div class="bg-gradient-to-r from-amber-950/80 via-rose-950/80 to-slate-800 border border-amber-500/40 p-6 rounded-2xl space-y-3 relative overflow-hidden">
+      <div class="flex items-center gap-2 text-amber-400 font-bold text-lg">
+        <i data-lucide="percent" class="w-6 h-6"></i>
+        <span>20% Price Cut Active for Today Only!</span>
       </div>
-      <p class="text-sm text-slate-300">
-        Your client account (<strong>thokbazaar40@gmail.com</strong>) requires basic platform API activation to enable vendor onboardings, payment gateway routing (eSewa/Fonepay), SMS OTP validations, and product catalog searches.
+      <p class="text-sm text-slate-300 max-w-2xl">
+        All API subscriptions, gateway licenses, and core infrastructure packages are currently reduced by <strong>20%</strong>. This special deployment promotional price expires tonight at 12:00 Midnight. Purchase today to lock in lower costs before regular rates return!
       </p>
       <div class="pt-2">
-        <a href="#" onclick="navigateTab('catalog.html')" class="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-300 bg-indigo-900/60 border border-indigo-700 px-3.5 py-2 rounded-lg hover:bg-indigo-900 transition">
-          <span>Open API & Infrastructure Store</span>
-          <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+        <a href="catalog.html" class="inline-flex items-center gap-2 text-xs font-bold text-slate-900 bg-amber-400 hover:bg-amber-300 px-4 py-2 rounded-lg transition shadow-md">
+          <i data-lucide="shopping-bag" class="w-4 h-4"></i> Access Discounted API Store
         </a>
       </div>
     </div>
   </main>
 
+  <!-- 20% OFFER AUTOMATIC POP-UP MODAL -->
+  <div id="offerModal" class="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50">
+    <div class="bg-slate-800 border border-amber-500/50 rounded-2xl max-w-md w-full p-6 text-white space-y-5 shadow-2xl relative text-center">
+      
+      <button onclick="closeOfferModal()" class="absolute top-3 right-3 text-slate-400 hover:text-white text-xl">&times;</button>
+
+      <div class="w-14 h-14 bg-amber-500/20 text-amber-400 border border-amber-500/40 rounded-full flex items-center justify-center mx-auto">
+        <i data-lucide="clock" class="w-8 h-8 animate-pulse"></i>
+      </div>
+
+      <div class="space-y-1">
+        <span class="bg-amber-500 text-slate-950 text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider">SPECIAL PROMOTIONAL OFFER</span>
+        <h3 class="text-2xl font-black text-white pt-2">20% Off All APIs Today!</h3>
+        <p class="text-xs text-slate-300">All module prices in the store have been reduced by 20%.</p>
+      </div>
+
+      <!-- Live Countdown Box -->
+      <div class="bg-slate-900 p-4 rounded-xl border border-slate-700 space-y-1">
+        <p class="text-xs text-amber-400 font-semibold uppercase tracking-widest">Offer Expires In:</p>
+        <div id="popupTimer" class="text-2xl font-mono font-bold text-emerald-400">00h : 00m : 00s</div>
+        <p class="text-[10px] text-slate-500">Timer resets tonight at 12:00 Midnight</p>
+      </div>
+
+      <p class="text-xs text-slate-400">
+        To avoid paying regular prices tomorrow, execute your platform infrastructure purchase today.
+      </p>
+
+      <div class="flex gap-3 pt-2">
+        <a href="catalog.html" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3 rounded-xl transition text-sm flex items-center justify-center gap-2 shadow-lg">
+          <i data-lucide="shopping-cart" class="w-4 h-4"></i> Buy APIs Now at 20% Off
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Locked Feature Modal -->
+  <div id="lockedModal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50">
+    <div class="bg-slate-800 border border-slate-700 rounded-xl max-w-sm w-full p-6 text-white space-y-4 text-center">
+      <div class="w-12 h-12 bg-rose-500/20 text-rose-400 rounded-full flex items-center justify-center mx-auto">
+        <i data-lucide="lock" class="w-6 h-6"></i>
+      </div>
+      <h3 class="text-lg font-bold">Feature Restricted</h3>
+      <p class="text-xs text-slate-300 leading-relaxed">
+        You are not authorized to access this module under your current tier. Please complete the core API procurement to unlock vendor management and system logs.
+      </p>
+      <button onclick="closeLockedModal()" class="w-full bg-slate-700 hover:bg-slate-600 text-white font-semibold py-2 rounded-lg text-xs transition">
+        Acknowledge & Close
+      </button>
+    </div>
+  </div>
+
   <footer class="bg-slate-800 border-t border-slate-700 py-4 text-center text-xs text-slate-500">
-    ThokBazaar Enterprise Portal &copy; 2026 | Multi-Vendor Infrastructure
+    DevPortal &copy; 2026 | Enterprise B2B Software Procurement Console
   </footer>
 
   <script>
     lucide.createIcons();
 
-    function showSpinner(callback) {
-      const overlay = document.getElementById('loadingOverlay');
-      overlay.classList.remove('hidden');
+    // Live Midnight Timer
+    function startMidnightTimer() {
+      function updateTimer() {
+        const now = new Date();
+        const midnight = new Date();
+        midnight.setHours(24, 0, 0, 0);
+
+        const diff = midnight - now;
+
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        const formatted = `${String(hours).padStart(2, '0')}h : ${String(minutes).padStart(2, '0')}m : ${String(seconds).padStart(2, '0')}s`;
+        
+        document.getElementById('popupTimer').innerText = formatted;
+        document.getElementById('navTimer').innerText = `${String(hours).padStart(2, '0')}h ${String(minutes).padStart(2, '0')}m ${String(seconds).padStart(2, '0')}s`;
+      }
+
+      updateTimer();
+      setInterval(updateTimer, 1000);
+    }
+
+    startMidnightTimer();
+
+    function closeOfferModal() {
+      document.getElementById('offerModal').classList.add('hidden');
+    }
+
+    function switchTab(e, target) {
+      e.preventDefault();
+      const loader = document.getElementById('loadingOverlay');
+      loader.classList.remove('hidden');
+
       setTimeout(() => {
-        overlay.classList.add('hidden');
-        if (callback) callback();
+        loader.classList.add('hidden');
+        if (target === 'catalog') {
+          window.location.href = 'catalog.html';
+        } else if (target === 'locked') {
+          document.getElementById('lockedModal').classList.remove('hidden');
+        }
       }, 1000);
     }
 
-    function navigateTab(targetUrl) {
-      showSpinner(() => {
-        window.location.href = targetUrl;
-      });
-    }
-
-    function clickDummyTab(tabName) {
-      showSpinner(() => {
-        document.getElementById('planRestrictionModal').classList.remove('hidden');
-      });
-    }
-
-    function closePlanModal() {
-      document.getElementById('planRestrictionModal').classList.add('hidden');
+    function closeLockedModal() {
+      document.getElementById('lockedModal').classList.add('hidden');
     }
   </script>
 </body>
