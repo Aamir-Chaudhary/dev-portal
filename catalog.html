@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>API Store & Licensing - ThokBazaar B2B</title>
+  <title>API Store - DevPortal</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
@@ -15,74 +15,54 @@
     }
   </style>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col justify-between font-sans relative">
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col justify-between font-sans">
 
-  <!-- 1-Second Page Transition Loader -->
-  <div id="loadingOverlay" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex flex-col items-center justify-center z-50">
-    <div class="w-10 h-10 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin mb-3"></div>
-    <p class="text-xs font-mono text-slate-300">Loading module environment...</p>
-  </div>
-
-  <!-- Plan Restriction Modal -->
-  <div id="planRestrictionModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-    <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-md w-full p-6 text-center space-y-4 shadow-2xl">
-      <div class="w-12 h-12 bg-amber-500/20 text-amber-400 border border-amber-500/30 rounded-full flex items-center justify-center mx-auto">
-        <i data-lucide="lock" class="w-6 h-6"></i>
-      </div>
-      <h3 class="text-lg font-bold text-white">Feature Locked</h3>
-      <p class="text-sm text-slate-300 leading-relaxed bg-slate-900/60 p-3 rounded-lg border border-slate-700/50">
-        You are not applicable to use this as per your purchased plan. Please upgrade your active package.
-      </p>
-      <button onclick="closePlanModal()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2.5 rounded-lg text-sm transition">
-        Acknowledge & Close
-      </button>
-    </div>
-  </div
-
-  <!-- Email Dispatch Confirmation Banner -->
-  <div id="emailNotification" class="hidden bg-emerald-600 text-white text-center py-2.5 text-xs font-medium transition-all shadow-md">
-    ✉️ Success! Automated PDF invoice and verification receipt sent to <strong>thokbazaar40@gmail.com</strong>
-  </div>
-
-  <!-- Navigation Bar -->
-  <header class="bg-slate-800 border-b border-slate-700 p-4 sticky top-0 z-40">
-    <div class="max-w-6xl mx-auto flex justify-between items-center px-2 md:px-4">
+  <!-- Header Navigation -->
+  <header class="bg-slate-800 border-b border-slate-700 p-4 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto flex justify-between items-center px-4">
       <div class="flex items-center gap-6">
         <div class="flex items-center gap-2">
           <i data-lucide="shield-check" class="text-indigo-400 w-6 h-6"></i>
-          <span class="font-bold text-white text-lg tracking-wide">ThokBazaar</span>
+          <span class="font-bold text-white text-lg">DevPortal</span>
         </div>
         <nav class="hidden md:flex items-center gap-6 text-sm">
-          <a href="#" onclick="navigateTab('dashboard.html')" class="text-slate-300 hover:text-white transition">Dashboard</a>
-          <a href="#" onclick="navigateTab('catalog.html')" class="text-indigo-400 font-medium border-b-2 border-indigo-500 pb-1">API & Infrastructure Store</a>
-          <a href="#" onclick="clickDummyTab('Vendor Management')" class="text-slate-400 hover:text-white transition">Vendor Management</a>
-          <a href="#" onclick="clickDummyTab('System Logs')" class="text-slate-400 hover:text-white transition">System Logs</a>
-          <a href="#" onclick="clickDummyTab('Reports')" class="text-slate-400 hover:text-white transition">Reports</a>
+          <a href="#" onclick="switchTab(event, 'dashboard')" class="text-slate-300 hover:text-white transition">Dashboard</a>
+          <a href="#" onclick="switchTab(event, 'catalog')" class="text-indigo-400 font-medium">API & Infrastructure Store</a>
+          <a href="#" onclick="switchTab(event, 'locked')" class="text-slate-300 hover:text-white transition">Vendor Management</a>
         </nav>
       </div>
-      <div class="flex items-center gap-3">
-        <span class="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2.5 py-1 rounded-full hidden sm:inline-block">Client: thokbazaar40@gmail.com</span>
-        <a href="#" onclick="navigateTab('index.html')" class="text-xs bg-slate-700 hover:bg-slate-600 px-3 py-1.5 rounded text-slate-200 transition">Logout</a>
+      <div class="text-sm bg-slate-700 px-3 py-1.5 rounded-lg border border-slate-600 flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>Environment: <strong>Production Node</strong></span>
       </div>
     </div>
   </header>
 
-  <!-- Mobile Nav Sub-bar -->
-  <div class="md:hidden bg-slate-800/80 border-b border-slate-700 p-2 px-4 flex justify-between text-xs overflow-x-auto">
-    <a href="#" onclick="navigateTab('dashboard.html')" class="text-slate-300 whitespace-nowrap">Dashboard</a>
-    <a href="#" onclick="navigateTab('catalog.html')" class="text-indigo-400 font-bold whitespace-nowrap">API Store</a>
-    <a href="#" onclick="clickDummyTab('Vendors')" class="text-slate-400 whitespace-nowrap">Vendors</a>
-    <a href="#" onclick="clickDummyTab('Logs')" class="text-slate-400 whitespace-nowrap">Logs</a>
+  <!-- Flash Sale Timer Top Bar -->
+  <div class="bg-amber-500 text-slate-950 font-bold py-1.5 px-4 text-center text-xs flex items-center justify-center gap-2 shadow">
+    <i data-lucide="clock" class="w-4 h-4"></i>
+    <span>TODAY'S SPECIAL: ALL PRICES REFLECT 20% DISCOUNT (OFFER ENDS AT 12:00 MIDNIGHT)</span>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div id="loadingOverlay" class="hidden fixed inset-0 bg-black/80 flex flex-col items-center justify-center z-50">
+    <div class="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+    <p class="text-sm text-slate-300 mt-4 font-medium">Loading platform node...</p>
+  </div>
+
+  <!-- Email Banner -->
+  <div id="emailNotification" class="hidden bg-emerald-600 text-white text-center py-2 text-sm font-medium transition-all">
+    ✉️ Success! Automated PDF invoice sent to thokbazaar40@gmail.com.
   </div>
 
   <!-- Main Catalog Content -->
-  <main class="max-w-6xl mx-auto w-full p-4 md:p-6 grid grid-cols-1 lg:grid-cols-3 gap-8 my-2 flex-1">
+  <main class="max-w-6xl mx-auto w-full p-4 md:p-6 grid grid-cols-1 lg:grid-cols-3 gap-8 my-4">
     
-    <!-- 10 Core APIs -->
+    <!-- API Selection Catalog -->
     <div class="lg:col-span-2 space-y-4">
       <div class="flex justify-between items-center mb-2">
-        <h2 class="text-lg font-semibold text-slate-200">Required B2B Platform Infrastructure APIs</h2>
-        <span class="text-xs text-slate-400">Select items to configure total</span>
+        <h2 class="text-lg font-semibold text-slate-200">Required B2B Platform Modules & APIs</h2>
+        <span class="text-xs bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2.5 py-1 rounded-full font-semibold">20% Discount Active</span>
       </div>
 
       <!-- Item 1 -->
@@ -91,11 +71,14 @@
           <input type="checkbox" class="mt-1 w-4 h-4 text-indigo-600 bg-slate-900 border-slate-700 rounded" checked disabled>
           <div>
             <label class="font-semibold text-white">Multi-Vendor E-Commerce Core Framework License</label>
-            <p class="text-xs text-slate-400 mt-1">Multi-vendor vendor dashboard, product management engine & payouts setup.</p>
-            <span class="inline-block mt-2 text-xs font-mono bg-indigo-950 text-indigo-300 border border-indigo-800 px-2 py-0.5 rounded">Core License</span>
+            <p class="text-xs text-slate-400 mt-1">Vendor dashboard, product engine, commission & payout manager.</p>
+            <span class="inline-block mt-2 text-xs font-mono bg-indigo-950 text-indigo-300 border border-indigo-800 px-2 py-0.5 rounded">Core Framework</span>
           </div>
         </div>
-        <span class="font-mono font-semibold text-emerald-400 text-sm whitespace-nowrap">NPR 25,000</span>
+        <div class="text-right">
+          <span class="text-xs text-slate-500 line-through block">₹31,250</span>
+          <span class="font-mono font-semibold text-emerald-400 text-sm whitespace-nowrap">₹25,000</span>
+        </div>
       </div>
 
       <!-- Item 2 -->
@@ -103,12 +86,15 @@
         <div class="flex gap-3">
           <input type="checkbox" id="api2" value="4999" onchange="calculateTotal()" class="api-checkbox mt-1 w-4 h-4 text-indigo-600 bg-slate-900 border-slate-700 rounded" checked>
           <div>
-            <label for="api2" class="font-semibold text-white cursor-pointer">APINepal Unified Gateway API</label>
-            <p class="text-xs text-slate-400 mt-1">eSewa, Khalti & Fonepay QR integration module with webhook endpoints.</p>
-            <span class="inline-block mt-2 text-xs font-mono bg-indigo-950 text-indigo-300 border border-indigo-800 px-2 py-0.5 rounded">Payment Gateway</span>
+            <label for="api2" class="font-semibold text-white">APINepal / Unified Payment Gateway API</label>
+            <p class="text-xs text-slate-400 mt-1">eSewa, Khalti, Fonepay & UPI QR payment module.</p>
+            <span class="inline-block mt-2 text-xs font-mono bg-indigo-950 text-indigo-300 border border-indigo-800 px-2 py-0.5 rounded">Gateway Tier</span>
           </div>
         </div>
-        <span class="font-mono font-semibold text-emerald-400 text-sm whitespace-nowrap">NPR 4,999</span>
+        <div class="text-right">
+          <span class="text-xs text-slate-500 line-through block">₹6,249</span>
+          <span class="font-mono font-semibold text-emerald-400 text-sm whitespace-nowrap">₹4,999</span>
+        </div>
       </div>
 
       <!-- Item 3 -->
@@ -116,12 +102,15 @@
         <div class="flex gap-3">
           <input type="checkbox" id="api3" value="5000" onchange="calculateTotal()" class="api-checkbox mt-1 w-4 h-4 text-indigo-600 bg-slate-900 border-slate-700 rounded" checked>
           <div>
-            <label for="api3" class="font-semibold text-white cursor-pointer">Sparrow SMS API (OTP & Order Dispatch Package)</label>
-            <p class="text-xs text-slate-400 mt-1">Prepaid allocation of 5,000 SMS credits for vendor logins & customer OTPs.</p>
+            <label for="api3" class="font-semibold text-white">Sparrow SMS API (OTP & Order Dispatch)</label>
+            <p class="text-xs text-slate-400 mt-1">Prepaid allocation of 5,000 SMS credits for logins.</p>
             <span class="inline-block mt-2 text-xs font-mono bg-indigo-950 text-indigo-300 border border-indigo-800 px-2 py-0.5 rounded">Telecom API</span>
           </div>
         </div>
-        <span class="font-mono font-semibold text-emerald-400 text-sm whitespace-nowrap">NPR 5,000</span>
+        <div class="text-right">
+          <span class="text-xs text-slate-500 line-through block">₹6,250</span>
+          <span class="font-mono font-semibold text-emerald-400 text-sm whitespace-nowrap">₹5,000</span>
+        </div>
       </div>
 
       <!-- Item 4 -->
@@ -129,12 +118,15 @@
         <div class="flex gap-3">
           <input type="checkbox" id="api4" value="4500" onchange="calculateTotal()" class="api-checkbox mt-1 w-4 h-4 text-indigo-600 bg-slate-900 border-slate-700 rounded" checked>
           <div>
-            <label for="api4" class="font-semibold text-white cursor-pointer">High-Speed Search & Discovery API (Meilisearch Cloud)</label>
-            <p class="text-xs text-slate-400 mt-1">Fast multi-vendor product filter, keyword search, and indexing server setup.</p>
+            <label for="api4" class="font-semibold text-white">High-Speed Search & Discovery API (Meilisearch)</label>
+            <p class="text-xs text-slate-400 mt-1">Fast product filter and multi-vendor search indexer.</p>
             <span class="inline-block mt-2 text-xs font-mono bg-indigo-950 text-indigo-300 border border-indigo-800 px-2 py-0.5 rounded">Search Engine</span>
           </div>
         </div>
-        <span class="font-mono font-semibold text-emerald-400 text-sm whitespace-nowrap">NPR 4,500</span>
+        <div class="text-right">
+          <span class="text-xs text-slate-500 line-through block">₹5,625</span>
+          <span class="font-mono font-semibold text-emerald-400 text-sm whitespace-nowrap">₹4,500</span>
+        </div>
       </div>
 
       <!-- Item 5 -->
@@ -142,12 +134,15 @@
         <div class="flex gap-3">
           <input type="checkbox" id="api5" value="3500" onchange="calculateTotal()" class="api-checkbox mt-1 w-4 h-4 text-indigo-600 bg-slate-900 border-slate-700 rounded" checked>
           <div>
-            <label for="api5" class="font-semibold text-white cursor-pointer">Google Maps Distance & Delivery Route API</label>
-            <p class="text-xs text-slate-400 mt-1">Vendor store location mapping, distance calculation, and shipping fee estimator.</p>
+            <label for="api5" class="font-semibold text-white">Google Maps Distance & Delivery Route API</label>
+            <p class="text-xs text-slate-400 mt-1">Vendor store mapping and distance matrix setup.</p>
             <span class="inline-block mt-2 text-xs font-mono bg-indigo-950 text-indigo-300 border border-indigo-800 px-2 py-0.5 rounded">Geolocation</span>
           </div>
         </div>
-        <span class="font-mono font-semibold text-emerald-400 text-sm whitespace-nowrap">NPR 3,500</span>
+        <div class="text-right">
+          <span class="text-xs text-slate-500 line-through block">₹4,375</span>
+          <span class="font-mono font-semibold text-emerald-400 text-sm whitespace-nowrap">₹3,500</span>
+        </div>
       </div>
 
       <!-- Item 6 -->
@@ -155,12 +150,15 @@
         <div class="flex gap-3">
           <input type="checkbox" id="api6" value="4000" onchange="calculateTotal()" class="api-checkbox mt-1 w-4 h-4 text-indigo-600 bg-slate-900 border-slate-700 rounded">
           <div>
-            <label for="api6" class="font-semibold text-white cursor-pointer">AWS S3 & CloudFront Media Storage API</label>
-            <p class="text-xs text-slate-400 mt-1">High-performance CDN storage for vendor product images & invoice PDFs.</p>
+            <label for="api6" class="font-semibold text-white">AWS S3 & CloudFront Media Storage API</label>
+            <p class="text-xs text-slate-400 mt-1">High-performance CDN storage for vendor images.</p>
             <span class="inline-block mt-2 text-xs font-mono bg-indigo-950 text-indigo-300 border border-indigo-800 px-2 py-0.5 rounded">Cloud Storage</span>
           </div>
         </div>
-        <span class="font-mono font-semibold text-emerald-400 text-sm whitespace-nowrap">NPR 4,000</span>
+        <div class="text-right">
+          <span class="text-xs text-slate-500 line-through block">₹5,000</span>
+          <span class="font-mono font-semibold text-emerald-400 text-sm whitespace-nowrap">₹4,000</span>
+        </div>
       </div>
 
       <!-- Item 7 -->
@@ -168,12 +166,15 @@
         <div class="flex gap-3">
           <input type="checkbox" id="api7" value="2500" onchange="calculateTotal()" class="api-checkbox mt-1 w-4 h-4 text-indigo-600 bg-slate-900 border-slate-700 rounded">
           <div>
-            <label for="api7" class="font-semibold text-white cursor-pointer">SendGrid Transactional Email API</label>
-            <p class="text-xs text-slate-400 mt-1">Automated delivery of purchase orders, vendor invoices & tax statements.</p>
+            <label for="api7" class="font-semibold text-white">SendGrid Transactional Email API</label>
+            <p class="text-xs text-slate-400 mt-1">Delivery of purchase orders, vendor invoices & receipts.</p>
             <span class="inline-block mt-2 text-xs font-mono bg-indigo-950 text-indigo-300 border border-indigo-800 px-2 py-0.5 rounded">Email Gateway</span>
           </div>
         </div>
-        <span class="font-mono font-semibold text-emerald-400 text-sm whitespace-nowrap">NPR 2,500</span>
+        <div class="text-right">
+          <span class="text-xs text-slate-500 line-through block">₹3,125</span>
+          <span class="font-mono font-semibold text-emerald-400 text-sm whitespace-nowrap">₹2,500</span>
+        </div>
       </div>
 
       <!-- Item 8 -->
@@ -181,12 +182,15 @@
         <div class="flex gap-3">
           <input type="checkbox" id="api8" value="3000" onchange="calculateTotal()" class="api-checkbox mt-1 w-4 h-4 text-indigo-600 bg-slate-900 border-slate-700 rounded">
           <div>
-            <label for="api8" class="font-semibold text-white cursor-pointer">Mixpanel & Google Analytics Data API</label>
-            <p class="text-xs text-slate-400 mt-1">Tracks buyer conversion rates, store navigation & vendor sales statistics.</p>
+            <label for="api8" class="font-semibold text-white">Mixpanel & Google Analytics Data API</label>
+            <p class="text-xs text-slate-400 mt-1">Tracks buyer conversion rates & store navigation.</p>
             <span class="inline-block mt-2 text-xs font-mono bg-indigo-950 text-indigo-300 border border-indigo-800 px-2 py-0.5 rounded">Analytics</span>
           </div>
         </div>
-        <span class="font-mono font-semibold text-emerald-400 text-sm whitespace-nowrap">NPR 3,000</span>
+        <div class="text-right">
+          <span class="text-xs text-slate-500 line-through block">₹3,750</span>
+          <span class="font-mono font-semibold text-emerald-400 text-sm whitespace-nowrap">₹3,000</span>
+        </div>
       </div>
 
       <!-- Item 9 -->
@@ -194,12 +198,15 @@
         <div class="flex gap-3">
           <input type="checkbox" id="api9" value="6000" onchange="calculateTotal()" class="api-checkbox mt-1 w-4 h-4 text-indigo-600 bg-slate-900 border-slate-700 rounded">
           <div>
-            <label for="api9" class="font-semibold text-white cursor-pointer">Algolia AI Product Recommendation API</label>
-            <p class="text-xs text-slate-400 mt-1">AI-driven cross-selling and smart product suggestions for buyers.</p>
+            <label for="api9" class="font-semibold text-white">Algolia AI Product Recommendation API</label>
+            <p class="text-xs text-slate-400 mt-1">AI-driven smart product suggestions for buyers.</p>
             <span class="inline-block mt-2 text-xs font-mono bg-indigo-950 text-indigo-300 border border-indigo-800 px-2 py-0.5 rounded">AI Engine</span>
           </div>
         </div>
-        <span class="font-mono font-semibold text-emerald-400 text-sm whitespace-nowrap">NPR 6,000</span>
+        <div class="text-right">
+          <span class="text-xs text-slate-500 line-through block">₹7,500</span>
+          <span class="font-mono font-semibold text-emerald-400 text-sm whitespace-nowrap">₹6,000</span>
+        </div>
       </div>
 
       <!-- Item 10 -->
@@ -207,67 +214,74 @@
         <div class="flex gap-3">
           <input type="checkbox" id="api10" value="5500" onchange="calculateTotal()" class="api-checkbox mt-1 w-4 h-4 text-indigo-600 bg-slate-900 border-slate-700 rounded">
           <div>
-            <label for="api10" class="font-semibold text-white cursor-pointer">KYC & Vendor Identity Verification API</label>
-            <p class="text-xs text-slate-400 mt-1">Automated business registration document verification for onboarded vendors.</p>
+            <label for="api10" class="font-semibold text-white">KYC & Vendor Identity Verification API</label>
+            <p class="text-xs text-slate-400 mt-1">Automated business document verification for vendor onboarding.</p>
             <span class="inline-block mt-2 text-xs font-mono bg-indigo-950 text-indigo-300 border border-indigo-800 px-2 py-0.5 rounded">Security API</span>
           </div>
         </div>
-        <span class="font-mono font-semibold text-emerald-400 text-sm whitespace-nowrap">NPR 5,500</span>
+        <div class="text-right">
+          <span class="text-xs text-slate-500 line-through block">₹6,875</span>
+          <span class="font-mono font-semibold text-emerald-400 text-sm whitespace-nowrap">₹5,500</span>
+        </div>
       </div>
+
     </div>
 
-    <!-- Summary Box -->
+    <!-- Order Summary Box -->
     <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 h-fit space-y-6 sticky top-24">
       <h3 class="text-lg font-bold border-b border-slate-700 pb-3 text-white">Procurement Summary</h3>
       
       <div class="space-y-3">
         <div>
-          <label class="block text-xs font-semibold text-slate-400 mb-1">Billed To (Client Email / Business)</label>
-          <input type="text" id="clientName" value="thokbazaar40@gmail.com" class="w-full bg-slate-900 border border-slate-700 rounded p-2 text-sm text-white focus:outline-none focus:border-indigo-500 font-mono">
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Client Name / Business Entity</label>
+          <input type="text" id="clientName" placeholder="e.g. Unique Traders Pvt. Ltd." class="w-full bg-slate-900 border border-slate-700 rounded p-2 text-sm text-white focus:outline-none focus:border-indigo-500">
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-400 mb-1">Lead Technical Developer</label>
-          <input type="text" id="devName" placeholder="e.g. Lead Engineer" class="w-full bg-slate-900 border border-slate-700 rounded p-2 text-sm text-white focus:outline-none focus:border-indigo-500">
+          <input type="text" id="devName" placeholder="e.g. Your Name" class="w-full bg-slate-900 border border-slate-700 rounded p-2 text-sm text-white focus:outline-none focus:border-indigo-500">
         </div>
       </div>
 
       <div class="border-t border-slate-700 pt-4 space-y-2 text-sm">
         <div class="flex justify-between text-slate-400">
-          <span>Core Infrastructure Subtotal</span>
-          <span id="subtotalText" class="font-mono">NPR 42,999</span>
+          <span>Subtotal</span>
+          <span id="subtotalText" class="font-mono">₹42,999</span>
+        </div>
+        <div class="flex justify-between text-xs text-amber-400 font-semibold">
+          <span>Today's Discount Applied</span>
+          <span>- 20% OFF</span>
         </div>
         <div class="flex justify-between text-base font-bold text-white border-t border-slate-700 pt-2 mt-2">
           <span>Total Investment</span>
-          <span id="totalText" class="font-mono text-emerald-400">NPR 42,999</span>
+          <span id="totalText" class="font-mono text-emerald-400">₹42,999</span>
         </div>
       </div>
 
-      <button onclick="openPaymentGatewayModal()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3 px-4 rounded-lg shadow-lg shadow-indigo-600/20 flex items-center justify-center gap-2 transition">
+      <button onclick="openPaymentGatewayModal()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3 px-4 rounded-lg shadow-lg flex items-center justify-center gap-2 transition">
         <i data-lucide="credit-card" class="w-4 h-4"></i>
         <span>Execute Order & Pay</span>
       </button>
-      <p class="text-xs text-center text-slate-500">Includes immediate license generation & email dispatch.</p>
     </div>
   </main>
 
-  <!-- STEP 1: Gateway Selection Modal -->
-  <div id="gatewayModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-    <div class="bg-slate-800 border border-slate-700 rounded-xl max-w-md w-full p-6 text-white space-y-4 shadow-2xl">
+  <!-- Gateway Selection Modal -->
+  <div id="gatewayModal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50">
+    <div class="bg-slate-800 border border-slate-700 rounded-xl max-w-md w-full p-6 text-white space-y-4">
       <div class="flex justify-between items-center border-b border-slate-700 pb-3">
         <h3 class="text-lg font-bold">Select Payment Gateway</h3>
         <button onclick="closeGatewayModal()" class="text-slate-400 hover:text-white">&times;</button>
       </div>
-      <p class="text-xs text-slate-400">Choose your preferred payment provider to complete the transaction:</p>
+      <p class="text-xs text-slate-400">Choose your preferred provider to complete transaction:</p>
       
       <div class="space-y-2">
-        <label class="flex items-center gap-3 p-3 bg-slate-900 border border-slate-700 rounded-lg cursor-pointer hover:border-indigo-500 transition">
+        <label class="flex items-center gap-3 p-3 bg-slate-900 border border-slate-700 rounded-lg cursor-pointer hover:border-indigo-500">
           <input type="radio" name="gateway" value="Paytm" checked class="text-indigo-600">
           <div>
             <p class="font-semibold text-sm">Paytm Business Gateway</p>
-            <p class="text-xs text-slate-400">Instant UPI & Direct Bank Transfer</p>
+            <p class="text-xs text-slate-400">Instant UPI & Wallet Payment</p>
           </div>
         </label>
-        <label class="flex items-center gap-3 p-3 bg-slate-900 border border-slate-700 rounded-lg cursor-pointer hover:border-indigo-500 transition">
+        <label class="flex items-center gap-3 p-3 bg-slate-900 border border-slate-700 rounded-lg cursor-pointer hover:border-indigo-500">
           <input type="radio" name="gateway" value="PhonePe" class="text-indigo-600">
           <div>
             <p class="font-semibold text-sm">PhonePe Merchant Checkout</p>
@@ -276,101 +290,83 @@
         </label>
       </div>
 
-      <button onclick="proceedToWalletSimulation()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2.5 rounded-lg transition text-sm shadow-lg">
-        Proceed with Gateway
+      <button onclick="proceedToWalletSimulation()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2.5 rounded-lg transition text-sm">
+        Proceed with Selected Gateway
       </button>
     </div>
   </div>
 
-  <!-- STEP 2: Wallet / UPI Payment Simulator -->
-  <div id="walletSimulatorModal" class="hidden fixed inset-0 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+  <!-- Wallet Simulator with reCAPTCHA, Pin Verification (0102) & Amount Threshold Rule -->
+  <div id="walletSimulatorModal" class="hidden fixed inset-0 bg-black/85 flex items-center justify-center p-4 z-50">
     <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-sm w-full p-6 text-white space-y-5 shadow-2xl relative">
       
-      <!-- Wallet Header Branding -->
       <div class="text-center border-b border-slate-800 pb-3">
         <span id="simulatorBrandLogo" class="bg-sky-500 text-slate-950 font-black px-3 py-1 rounded text-xs uppercase tracking-widest">PAYTM SECURE</span>
-        <h4 class="text-lg font-bold mt-2">Merchant Payment Portal</h4>
+        <h4 class="text-base font-bold mt-2">Merchant Payment Portal</h4>
       </div>
 
       <!-- Merchant Details Box -->
-      <div class="bg-slate-800 p-3.5 rounded-xl border border-slate-700 space-y-1 text-xs">
-        <div class="flex justify-between items-center">
-          <span class="text-slate-400">Registered Name:</span>
-          <span class="font-bold text-white tracking-wide">SAMA CHAUDHARY</span>
+      <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700 text-xs space-y-1">
+        <div class="flex justify-between text-slate-400">
+          <span>Verified Merchant:</span>
+          <span class="font-bold text-white">SAMA CHAUDHARY</span>
         </div>
-        <div class="flex justify-between items-center">
-          <span class="text-slate-400">Verified UPI ID:</span>
-          <span class="font-mono text-emerald-400 font-semibold flex items-center gap-1">
-            9125819327@ptsbi 
-            <i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-400 inline"></i>
-          </span>
+        <div class="flex justify-between text-slate-400">
+          <span>UPI ID:</span>
+          <span class="font-mono text-indigo-300">9125819327@ptsbi</span>
         </div>
       </div>
 
-      <!-- Payable Amount Box -->
-      <div class="bg-slate-950 p-3 rounded-xl text-center border border-slate-800">
+      <div class="bg-slate-800 p-3 rounded-xl text-center border border-slate-700">
         <span class="text-xs text-slate-400">Total Payable Amount</span>
-        <h2 id="simulatorAmount" class="text-2xl font-mono font-bold text-emerald-400 mt-0.5">NPR 42,999</h2>
+        <h2 id="simulatorAmount" class="text-2xl font-mono font-bold text-emerald-400 mt-0.5">₹42,999</h2>
       </div>
 
-      <!-- Main Payment Inputs -->
+      <!-- Step A: PIN and reCAPTCHA Entry -->
       <div id="pinStep" class="space-y-4">
-        <!-- reCAPTCHA Checkbox -->
-        <div class="bg-slate-800 border border-slate-700 rounded-lg p-3 flex items-center justify-between">
+        <!-- reCAPTCHA Mock -->
+        <div class="bg-slate-950 border border-slate-700 p-3 rounded-xl flex items-center justify-between">
           <label class="flex items-center gap-3 cursor-pointer">
-            <input type="checkbox" id="captchaCheck" class="w-4 h-4 text-emerald-500 rounded bg-slate-900 border-slate-700">
-            <span class="text-xs text-slate-200 font-medium">I'm not a robot</span>
+            <input type="checkbox" id="captchaCheck" class="w-5 h-5 rounded text-indigo-600 focus:ring-0">
+            <span class="text-xs text-slate-300 font-medium">I'm not a robot</span>
           </label>
-          <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" alt="captcha" class="w-6 h-6 opacity-70">
+          <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" alt="reCAPTCHA" class="w-6 h-6 opacity-70">
         </div>
 
-        <!-- 4-Digit PIN -->
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1 text-center">Enter 4-Digit UPI PIN</label>
           <input type="password" id="upiPin" maxlength="4" placeholder="••••" class="w-32 mx-auto block bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-center text-xl font-mono tracking-widest text-white focus:outline-none focus:border-indigo-500">
         </div>
 
-        <button onclick="submitUpiPin()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3 rounded-lg transition text-sm shadow-lg">
+        <button onclick="submitUpiPin()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2.5 rounded-lg transition text-sm shadow-lg">
           Pay Now
         </button>
       </div>
 
-      <!-- Processing Loader -->
+      <!-- Step B: Processing Loader -->
       <div id="processingStep" class="hidden text-center py-6 space-y-3">
         <div class="w-10 h-10 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
-        <p class="text-sm font-medium text-slate-300">Validating bank UPI server node...</p>
-        <p class="text-xs text-slate-500">Communicating with 9125819327@ptsbi</p>
+        <p class="text-sm font-medium text-slate-300">Processing secure transaction...</p>
+        <p class="text-xs text-slate-500">Connecting to UPI node server</p>
       </div>
 
-      <!-- Invalid PIN State -->
-      <div id="invalidPinStep" class="hidden text-center py-4 space-y-3">
-        <div class="w-12 h-12 bg-rose-500/20 text-rose-400 border border-rose-500/30 rounded-full flex items-center justify-center mx-auto text-xl font-bold">✕</div>
-        <h5 class="text-base font-bold text-rose-400">Invalid UPI PIN</h5>
-        <p class="text-xs text-slate-300 bg-rose-950/40 border border-rose-900/50 p-2.5 rounded-lg">
-          Your PIN is invalid. Transaction failed. Please try again.
-        </p>
-        <button onclick="resetPinInput()" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-semibold py-2 rounded-lg text-xs transition">
-          Re-enter PIN
-        </button>
-      </div>
-
-      <!-- Insufficient Balance Failure State (>= 30,000 NPR) -->
-      <div id="insufficientBalanceStep" class="hidden text-center py-4 space-y-3">
+      <!-- Step C: Failed Error State (Amount >= 30000) -->
+      <div id="failedStep" class="hidden text-center py-4 space-y-4">
         <div class="w-12 h-12 bg-rose-500/20 text-rose-400 border border-rose-500/30 rounded-full flex items-center justify-center mx-auto text-xl font-bold">✕</div>
         <h5 class="text-base font-bold text-rose-400">Transaction Failed</h5>
         <p class="text-xs text-slate-300 leading-relaxed bg-rose-950/40 border border-rose-900/50 p-3 rounded-lg">
-          Transaction failed due to insufficient balance. Please contact your bank or adjust your plan amount.
+          Transaction failed due to <strong>insufficient balance</strong> or daily UPI limit exceeded. Please contact your bank or reduce package items.
         </p>
         <button onclick="closeSimulator()" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-semibold py-2 rounded-lg text-xs transition">
-          Close & Select Unneeded APIs
+          Close & Reconfigure Items
         </button>
       </div>
 
     </div>
   </div>
 
-  <!-- STEP 3: Printable Invoice Modal (< 30,000 NPR success) -->
-  <div id="invoiceModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+  <!-- Printable Invoice Modal -->
+  <div id="invoiceModal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50">
     <div id="printableInvoice" class="bg-white text-slate-800 rounded-xl max-w-2xl w-full p-8 shadow-2xl relative">
       
       <div class="no-print absolute top-4 right-4 flex gap-2">
@@ -396,13 +392,12 @@
 
       <div class="grid grid-cols-2 gap-4 my-6 text-sm">
         <div>
-          <p class="text-xs font-bold text-slate-400 uppercase">Billed To (Client Email)</p>
-          <p id="invClient" class="font-bold text-slate-800 text-base">thokbazaar40@gmail.com</p>
+          <p class="text-xs font-bold text-slate-400 uppercase">Billed To (Client)</p>
+          <p id="invClient" class="font-bold text-slate-800 text-base">Client Entity Name</p>
         </div>
         <div>
-          <p class="text-xs font-bold text-slate-400 uppercase">Procured By / Merchant</p>
-          <p id="invDev" class="font-bold text-slate-800 text-base">SAMA CHAUDHARY</p>
-          <p class="text-xs text-slate-500 font-mono">UPI: 9125819327@ptsbi</p>
+          <p class="text-xs font-bold text-slate-400 uppercase">Procured By (Technical Partner)</p>
+          <p id="invDev" class="font-bold text-slate-800 text-base">Lead Developer</p>
         </div>
       </div>
 
@@ -410,7 +405,7 @@
         <thead>
           <tr class="border-b border-slate-200 text-xs text-slate-400 uppercase">
             <th class="py-2">Item / License Description</th>
-            <th class="py-2 text-right">Amount (NPR)</th>
+            <th class="py-2 text-right">Amount (INR)</th>
           </tr>
         </thead>
         <tbody id="invoiceItems" class="text-sm divide-y divide-slate-100">
@@ -420,57 +415,48 @@
 
       <div class="border-t border-slate-200 pt-4 flex justify-between items-center font-bold text-slate-900">
         <span class="text-base">Grand Total Paid</span>
-        <span id="invTotal" class="text-xl font-mono text-emerald-600">NPR 0</span>
+        <span id="invTotal" class="text-xl font-mono text-emerald-600">₹0</span>
       </div>
 
       <div class="mt-8 pt-4 border-t border-slate-100 text-center text-xs text-slate-400">
-        <p>Automated PDF invoice and verification receipt sent to <strong>thokbazaar40@gmail.com</strong>.</p>
+        <p>Automated verification receipt. Dispatched directly to <strong>thokbazaar40@gmail.com</strong>.</p>
       </div>
     </div>
   </div>
 
   <footer class="bg-slate-800 border-t border-slate-700 py-4 text-center text-xs text-slate-500">
-    ThokBazaar Enterprise Portal &copy; 2026 | Multi-Vendor Infrastructure
+    DevPortal &copy; 2026 | Enterprise B2B Software Procurement Console
   </footer>
 
   <script>
     lucide.createIcons();
     let currentTotal = 42999;
+    let selectedGatewayName = "Paytm";
 
     function calculateTotal() {
-      let total = 25000; // Base core framework price
+      let total = 25000; // Base core price
       document.querySelectorAll('.api-checkbox:checked').forEach(cb => {
         total += parseInt(cb.value);
       });
       currentTotal = total;
-      document.getElementById('subtotalText').innerText = `NPR ${total.toLocaleString()}`;
-      document.getElementById('totalText').innerText = `NPR ${total.toLocaleString()}`;
+      document.getElementById('subtotalText').innerText = `₹${total.toLocaleString()}`;
+      document.getElementById('totalText').innerText = `₹${total.toLocaleString()}`;
       return total;
     }
 
-    function showSpinner(callback) {
-      const overlay = document.getElementById('loadingOverlay');
-      overlay.classList.remove('hidden');
+    function switchTab(e, target) {
+      e.preventDefault();
+      const loader = document.getElementById('loadingOverlay');
+      loader.classList.remove('hidden');
+
       setTimeout(() => {
-        overlay.classList.add('hidden');
-        if (callback) callback();
+        loader.classList.add('hidden');
+        if (target === 'dashboard') {
+          window.location.href = 'dashboard.html';
+        } else if (target === 'locked') {
+          alert("Feature Locked: Complete API purchase first to unlock vendor management.");
+        }
       }, 1000);
-    }
-
-    function navigateTab(targetUrl) {
-      showSpinner(() => {
-        window.location.href = targetUrl;
-      });
-    }
-
-    function clickDummyTab(tabName) {
-      showSpinner(() => {
-        document.getElementById('planRestrictionModal').classList.remove('hidden');
-      });
-    }
-
-    function closePlanModal() {
-      document.getElementById('planRestrictionModal').classList.add('hidden');
     }
 
     function openPaymentGatewayModal() {
@@ -484,35 +470,25 @@
 
     function proceedToWalletSimulation() {
       const selected = document.querySelector('input[name="gateway"]:checked').value;
+      selectedGatewayName = selected;
       document.getElementById('simulatorBrandLogo').innerText = `${selected.toUpperCase()} SECURE`;
-      document.getElementById('simulatorAmount').innerText = `NPR ${currentTotal.toLocaleString()}`;
+      document.getElementById('simulatorAmount').innerText = `₹${currentTotal.toLocaleString()}`;
       
       closeGatewayModal();
-      resetSimulatorState();
-      document.getElementById('walletSimulatorModal').classList.remove('hidden');
-    }
-
-    function resetSimulatorState() {
       document.getElementById('pinStep').classList.remove('hidden');
       document.getElementById('processingStep').classList.add('hidden');
-      document.getElementById('invalidPinStep').classList.add('hidden');
-      document.getElementById('insufficientBalanceStep').classList.add('hidden');
+      document.getElementById('failedStep').classList.add('hidden');
       document.getElementById('upiPin').value = '';
       document.getElementById('captchaCheck').checked = false;
-    }
-
-    function resetPinInput() {
-      document.getElementById('invalidPinStep').classList.add('hidden');
-      document.getElementById('pinStep').classList.remove('hidden');
-      document.getElementById('upiPin').value = '';
+      document.getElementById('walletSimulatorModal').classList.remove('hidden');
     }
 
     function submitUpiPin() {
       const isRobotChecked = document.getElementById('captchaCheck').checked;
-      const pin = document.getElementById('upiPin').value.trim();
+      const pin = document.getElementById('upiPin').value;
 
       if (!isRobotChecked) {
-        alert("Please verify that you are not a robot by checking the box.");
+        alert("Please complete the 'I'm not a robot' verification checkbox.");
         return;
       }
 
@@ -521,25 +497,29 @@
         return;
       }
 
-      document.getElementById('pinStep').classList.add('hidden');
-      document.getElementById('processingStep').classList.remove('hidden');
-
-      // INVALID PIN BRANCH (!= 0102) -> 3 seconds processing
+      // PIN validation rule: Must be '0102'
       if (pin !== "0102") {
+        document.getElementById('pinStep').classList.add('hidden');
+        document.getElementById('processingStep').classList.remove('hidden');
+
         setTimeout(() => {
           document.getElementById('processingStep').classList.add('hidden');
-          document.getElementById('invalidPinStep').classList.remove('hidden');
+          document.getElementById('pinStep').classList.remove('hidden');
+          alert("Your PIN is invalid. Please try again.");
         }, 3000);
         return;
       }
 
-      // VALID PIN BRANCH (== 0102) -> 5 seconds processing
+      // Valid PIN entered -> Process for 5 seconds
+      document.getElementById('pinStep').classList.add('hidden');
+      document.getElementById('processingStep').classList.remove('hidden');
+
       setTimeout(() => {
         document.getElementById('processingStep').classList.add('hidden');
 
-        // Check if amount >= 30,000 NPR
+        // Amount Rule: >= ₹30,000 fails due to insufficient balance
         if (currentTotal >= 30000) {
-          document.getElementById('insufficientBalanceStep').classList.remove('hidden');
+          document.getElementById('failedStep').classList.remove('hidden');
         } else {
           document.getElementById('walletSimulatorModal').classList.add('hidden');
           showInvoiceAndTriggerEmail();
@@ -552,17 +532,18 @@
     }
 
     function showInvoiceAndTriggerEmail() {
-      const client = document.getElementById('clientName').value || "thokbazaar40@gmail.com";
-      const dev = document.getElementById('devName').value || "SAMA CHAUDHARY";
+      const client = document.getElementById('clientName').value || "Client Account";
+      const dev = document.getElementById('devName').value || "Lead Developer";
 
       document.getElementById('invClient').innerText = client;
       document.getElementById('invDev').innerText = dev;
-      document.getElementById('invTotal').innerText = `NPR ${currentTotal.toLocaleString()}`;
+      document.getElementById('invTotal').innerText = `₹${currentTotal.toLocaleString()}`;
       
       const today = new Date().toISOString().split('T')[0];
       document.getElementById('invDate').innerText = today;
       document.getElementById('invId').innerText = 'INV-' + Math.floor(10000 + Math.random() * 90000);
 
+      // Build items table
       const tbody = document.getElementById('invoiceItems');
       tbody.innerHTML = `
         <tr>
@@ -572,7 +553,7 @@
       `;
 
       const apiCheckboxes = [
-        {id: 'api2', name: 'APINepal Gateway API (eSewa, Khalti, Fonepay)', price: '4,999'},
+        {id: 'api2', name: 'APINepal Gateway API (eSewa, Khalti, Fonepay, UPI)', price: '4,999'},
         {id: 'api3', name: 'Sparrow SMS API Package (5,000 OTP Credits)', price: '5,000'},
         {id: 'api4', name: 'Meilisearch Cloud Search Engine License', price: '4,500'},
         {id: 'api5', name: 'Google Maps API Routing & Location Integration', price: '3,500'},
