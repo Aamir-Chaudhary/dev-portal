@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - ThokBazaar B2B Infrastructure</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .animate-spinner {
+        animation: spin 0.8s linear infinite;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-slate-900 text-slate-100 min-h-screen flex items-center justify-center p-4 font-sans relative"
+  >
+    <!-- Loading Overlay -->
+    <div
+      id="loadingOverlay"
+      class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex flex-col items-center justify-center z-50"
+    >
+      <div
+        class="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spinner mb-3"
+      ></div>
+      <p class="text-sm font-medium text-slate-200" id="loadingText">
+        Authenticating credentials...
+      </p>
+    </div>
+
+    <!-- Login Card -->
+    <div
+      class="bg-slate-800 border border-slate-700 rounded-2xl max-w-md w-full p-8 shadow-2xl space-y-6 relative"
+    >
+      <div class="text-center space-y-2">
+        <div
+          class="inline-flex p-3 bg-indigo-600/20 text-indigo-400 rounded-xl mb-1 border border-indigo-500/30"
+        >
+          <i data-lucide="shield-check" class="w-8 h-8"></i>
+        </div>
+        <h1 class="text-2xl font-bold tracking-wide text-white">
+          ThokBazaar Enterprise
+        </h1>
+        <p class="text-xs text-slate-400">
+          Authorized B2B Portal & API Licensing Management
+        </p>
+      </div>
+
+      <!-- Error Alert Box -->
+      <div
+        id="errorBox"
+        class="hidden bg-rose-950/80 border border-rose-800 text-rose-300 p-3 rounded-lg text-xs leading-relaxed flex items-start gap-2"
+      >
+        <i
+          data-lucide="alert-triangle"
+          class="w-4 h-4 text-rose-400 shrink-0 mt-0.5"
+        ></i>
+        <span id="errorMessage"
+          >You are not authorized to login or you are not registered as client
+          to us</span
+        >
+      </div>
+
+      <form onsubmit="handleLogin(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1"
+            >Registered Client Email</label
+          >
+          <div class="relative">
+            <i
+              data-lucide="mail"
+              class="w-4 h-4 text-slate-500 absolute left-3 top-3.5"
+            ></i>
+            <input
+              type="email"
+              id="loginEmail"
+              required
+              placeholder="thokbazaar40@gmail.com"
+              class="w-full bg-slate-900 border border-slate-700 rounded-lg py-2.5 pl-10 pr-3 text-sm text-white focus:outline-none focus:border-indigo-500 transition"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1"
+            >Access Password</label
+          >
+          <div class="relative">
+            <i
+              data-lucide="lock"
+              class="w-4 h-4 text-slate-500 absolute left-3 top-3.5"
+            ></i>
+            <input
+              type="password"
+              id="loginPassword"
+              required
+              placeholder="••••••••••••••••"
+              class="w-full bg-slate-900 border border-slate-700 rounded-lg py-2.5 pl-10 pr-3 text-sm text-white focus:outline-none focus:border-indigo-500 transition"
+            />
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3 rounded-lg transition text-sm shadow-lg shadow-indigo-600/20 flex items-center justify-center gap-2"
+        >
+          <span>Sign In to Dashboard</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </button>
+      </form>
+
+      <div
+        class="text-center text-xs text-slate-500 border-t border-slate-700/60 pt-4"
+      >
+        <p>ThokBazaar Security Console &copy; 2026. All rights reserved.</p>
+      </div>
+    </div>
+
+    <script>
+      lucide.createIcons();
+
+      function handleLogin(e) {
+        e.preventDefault();
+        const email = document.getElementById("loginEmail").value.trim();
+        const pass = document.getElementById("loginPassword").value.trim();
+        const errorBox = document.getElementById("errorBox");
+
+        errorBox.classList.add("hidden");
+
+        // STRICT VALIDATION
+        if (
+          email !== "thokbazaar40@gmail.com" ||
+          pass !== "thokbazaar40@gmail.com"
+        ) {
+          errorBox.classList.remove("hidden");
+          return;
+        }
+
+        // Show 1-second loading spinner overlay
+        const overlay = document.getElementById("loadingOverlay");
+        overlay.classList.remove("hidden");
+
+        setTimeout(() => {
+          window.location.href = "dashboard.html";
+        }, 1000);
+      }
+    </script>
+  </body>
+</html>
