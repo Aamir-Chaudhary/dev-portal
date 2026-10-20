@@ -296,7 +296,7 @@
     </div>
   </div>
 
-  <!-- Wallet Simulator with reCAPTCHA, Pin Verification (0102) & Amount Threshold Rule -->
+  <!-- Wallet Simulator -->
   <div id="walletSimulatorModal" class="hidden fixed inset-0 bg-black/85 flex items-center justify-center p-4 z-50">
     <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-sm w-full p-6 text-white space-y-5 shadow-2xl relative">
       
@@ -324,7 +324,6 @@
 
       <!-- Step A: PIN and reCAPTCHA Entry -->
       <div id="pinStep" class="space-y-4">
-        <!-- reCAPTCHA Mock -->
         <div class="bg-slate-950 border border-slate-700 p-3 rounded-xl flex items-center justify-between">
           <label class="flex items-center gap-3 cursor-pointer">
             <input type="checkbox" id="captchaCheck" class="w-5 h-5 rounded text-indigo-600 focus:ring-0">
@@ -350,7 +349,7 @@
         <p class="text-xs text-slate-500">Connecting to UPI node server</p>
       </div>
 
-      <!-- Step C: Failed Error State (Amount >= 30000) -->
+      <!-- Step C: Failed Error State -->
       <div id="failedStep" class="hidden text-center py-4 space-y-4">
         <div class="w-12 h-12 bg-rose-500/20 text-rose-400 border border-rose-500/30 rounded-full flex items-center justify-center mx-auto text-xl font-bold">✕</div>
         <h5 class="text-base font-bold text-rose-400">Transaction Failed</h5>
@@ -434,7 +433,7 @@
     let selectedGatewayName = "Paytm";
 
     function calculateTotal() {
-      let total = 25000; // Base core price
+      let total = 25000;
       document.querySelectorAll('.api-checkbox:checked').forEach(cb => {
         total += parseInt(cb.value);
       });
@@ -497,7 +496,6 @@
         return;
       }
 
-      // PIN validation rule: Must be '0102'
       if (pin !== "0102") {
         document.getElementById('pinStep').classList.add('hidden');
         document.getElementById('processingStep').classList.remove('hidden');
@@ -510,14 +508,12 @@
         return;
       }
 
-      // Valid PIN entered -> Process for 5 seconds
       document.getElementById('pinStep').classList.add('hidden');
       document.getElementById('processingStep').classList.remove('hidden');
 
       setTimeout(() => {
         document.getElementById('processingStep').classList.add('hidden');
 
-        // Amount Rule: >= ₹30,000 fails due to insufficient balance
         if (currentTotal >= 30000) {
           document.getElementById('failedStep').classList.remove('hidden');
         } else {
@@ -543,7 +539,6 @@
       document.getElementById('invDate').innerText = today;
       document.getElementById('invId').innerText = 'INV-' + Math.floor(10000 + Math.random() * 90000);
 
-      // Build items table
       const tbody = document.getElementById('invoiceItems');
       tbody.innerHTML = `
         <tr>
