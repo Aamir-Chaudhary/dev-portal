@@ -65,12 +65,12 @@
         <span class="text-xs bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2.5 py-1 rounded-full font-semibold">10% Discount Active</span>
       </div>
 
-      <!-- Item 1 -->
+      <!-- Item 1 (Now fully selectable/unselectable) -->
       <div class="bg-slate-800 border border-slate-700 rounded-xl p-4 flex justify-between items-start">
         <div class="flex gap-3">
-          <input type="checkbox" class="mt-1 w-4 h-4 text-indigo-600 bg-slate-900 border-slate-700 rounded" checked disabled>
+          <input type="checkbox" id="api1" value="27000" onchange="calculateTotal()" class="api-checkbox mt-1 w-4 h-4 text-indigo-600 bg-slate-900 border-slate-700 rounded" checked>
           <div>
-            <label class="font-semibold text-white">Multi-Vendor E-Commerce Core Framework License</label>
+            <label for="api1" class="font-semibold text-white cursor-pointer">Multi-Vendor E-Commerce Core Framework License</label>
             <p class="text-xs text-slate-400 mt-1">Vendor dashboard, product engine, commission & payout manager.</p>
             <span class="inline-block mt-2 text-xs font-mono bg-indigo-950 text-indigo-300 border border-indigo-800 px-2 py-0.5 rounded">Core Framework</span>
           </div>
@@ -84,27 +84,43 @@
       <!-- Item 2 -->
       <div class="bg-slate-800 border border-slate-700 rounded-xl p-4 flex justify-between items-start">
         <div class="flex gap-3">
-          <input type="checkbox" id="api2" value="4499" onchange="calculateTotal()" class="api-checkbox mt-1 w-4 h-4 text-indigo-600 bg-slate-900 border-slate-700 rounded" checked>
+          <input type="checkbox" id="api2" value="4999" onchange="calculateTotal()" class="api-checkbox mt-1 w-4 h-4 text-indigo-600 bg-slate-900 border-slate-700 rounded" checked>
           <div>
-            <label for="api2" class="font-semibold text-white">APINepal / Unified Payment Gateway API</label>
+            <label for="api2" class="font-semibold text-white cursor-pointer">APINepal / Unified Payment Gateway API</label>
             <p class="text-xs text-slate-400 mt-1">eSewa, Khalti, Fonepay & UPI QR payment module.</p>
             <span class="inline-block mt-2 text-xs font-mono bg-indigo-950 text-indigo-300 border border-indigo-800 px-2 py-0.5 rounded">Gateway Tier</span>
           </div>
         </div>
         <div class="text-right">
-          <span class="text-xs text-slate-500 line-through block">₹4,999</span>
-          <span class="font-mono font-semibold text-emerald-400 text-sm whitespace-nowrap">₹4,499</span>
+          <span class="text-xs text-slate-500 line-through block">₹5,554</span>
+          <span class="font-mono font-semibold text-emerald-400 text-sm whitespace-nowrap">₹4,999</span>
         </div>
       </div>
 
       <!-- Item 3 -->
       <div class="bg-slate-800 border border-slate-700 rounded-xl p-4 flex justify-between items-start">
         <div class="flex gap-3">
-          <input type="checkbox" id="api3" value="4500" onchange="calculateTotal()" class="api-checkbox mt-1 w-4 h-4 text-indigo-600 bg-slate-900 border-slate-700 rounded" checked>
+          <input type="checkbox" id="api3" value="5000" onchange="calculateTotal()" class="api-checkbox mt-1 w-4 h-4 text-indigo-600 bg-slate-900 border-slate-700 rounded" checked>
           <div>
-            <label for="api3" class="font-semibold text-white">Sparrow SMS API (OTP & Order Dispatch)</label>
+            <label for="api3" class="font-semibold text-white cursor-pointer">Sparrow SMS API (OTP & Order Dispatch)</label>
             <p class="text-xs text-slate-400 mt-1">Prepaid allocation of 5,000 SMS credits for logins.</p>
             <span class="inline-block mt-2 text-xs font-mono bg-indigo-950 text-indigo-300 border border-indigo-800 px-2 py-0.5 rounded">Telecom API</span>
+          </div>
+        </div>
+        <div class="text-right">
+          <span class="text-xs text-slate-500 line-through block">₹5,555</span>
+          <span class="font-mono font-semibold text-emerald-400 text-sm whitespace-nowrap">₹5,000</span>
+        </div>
+      </div>
+
+      <!-- Item 4 -->
+      <div class="bg-slate-800 border border-slate-700 rounded-xl p-4 flex justify-between items-start">
+        <div class="flex gap-3">
+          <input type="checkbox" id="api4" value="4500" onchange="calculateTotal()" class="api-checkbox mt-1 w-4 h-4 text-indigo-600 bg-slate-900 border-slate-700 rounded" checked>
+          <div>
+            <label for="api4" class="font-semibold text-white cursor-pointer">High-Speed Search & Discovery API (Meilisearch)</label>
+            <p class="text-xs text-slate-400 mt-1">Fast product filter and multi-vendor search indexer.</p>
+            <span class="inline-block mt-2 text-xs font-mono bg-indigo-950 text-indigo-300 border border-indigo-800 px-2 py-0.5 rounded">Search Engine</span>
           </div>
         </div>
         <div class="text-right">
@@ -113,115 +129,99 @@
         </div>
       </div>
 
-      <!-- Item 4 -->
-      <div class="bg-slate-800 border border-slate-700 rounded-xl p-4 flex justify-between items-start">
-        <div class="flex gap-3">
-          <input type="checkbox" id="api4" value="4050" onchange="calculateTotal()" class="api-checkbox mt-1 w-4 h-4 text-indigo-600 bg-slate-900 border-slate-700 rounded" checked>
-          <div>
-            <label for="api4" class="font-semibold text-white">High-Speed Search & Discovery API (Meilisearch)</label>
-            <p class="text-xs text-slate-400 mt-1">Fast product filter and multi-vendor search indexer.</p>
-            <span class="inline-block mt-2 text-xs font-mono bg-indigo-950 text-indigo-300 border border-indigo-800 px-2 py-0.5 rounded">Search Engine</span>
-          </div>
-        </div>
-        <div class="text-right">
-          <span class="text-xs text-slate-500 line-through block">₹4,500</span>
-          <span class="font-mono font-semibold text-emerald-400 text-sm whitespace-nowrap">₹4,050</span>
-        </div>
-      </div>
-
       <!-- Item 5 -->
       <div class="bg-slate-800 border border-slate-700 rounded-xl p-4 flex justify-between items-start">
         <div class="flex gap-3">
-          <input type="checkbox" id="api5" value="3150" onchange="calculateTotal()" class="api-checkbox mt-1 w-4 h-4 text-indigo-600 bg-slate-900 border-slate-700 rounded" checked>
+          <input type="checkbox" id="api5" value="3500" onchange="calculateTotal()" class="api-checkbox mt-1 w-4 h-4 text-indigo-600 bg-slate-900 border-slate-700 rounded" checked>
           <div>
-            <label for="api5" class="font-semibold text-white">Google Maps Distance & Delivery Route API</label>
+            <label for="api5" class="font-semibold text-white cursor-pointer">Google Maps Distance & Delivery Route API</label>
             <p class="text-xs text-slate-400 mt-1">Vendor store mapping and distance matrix setup.</p>
             <span class="inline-block mt-2 text-xs font-mono bg-indigo-950 text-indigo-300 border border-indigo-800 px-2 py-0.5 rounded">Geolocation</span>
           </div>
         </div>
         <div class="text-right">
-          <span class="text-xs text-slate-500 line-through block">₹3,500</span>
-          <span class="font-mono font-semibold text-emerald-400 text-sm whitespace-nowrap">₹3,150</span>
+          <span class="text-xs text-slate-500 line-through block">₹3,889</span>
+          <span class="font-mono font-semibold text-emerald-400 text-sm whitespace-nowrap">₹3,500</span>
         </div>
       </div>
 
       <!-- Item 6 -->
       <div class="bg-slate-800 border border-slate-700 rounded-xl p-4 flex justify-between items-start">
         <div class="flex gap-3">
-          <input type="checkbox" id="api6" value="3600" onchange="calculateTotal()" class="api-checkbox mt-1 w-4 h-4 text-indigo-600 bg-slate-900 border-slate-700 rounded">
+          <input type="checkbox" id="api6" value="4000" onchange="calculateTotal()" class="api-checkbox mt-1 w-4 h-4 text-indigo-600 bg-slate-900 border-slate-700 rounded">
           <div>
-            <label for="api6" class="font-semibold text-white">AWS S3 & CloudFront Media Storage API</label>
+            <label for="api6" class="font-semibold text-white cursor-pointer">AWS S3 & CloudFront Media Storage API</label>
             <p class="text-xs text-slate-400 mt-1">High-performance CDN storage for vendor images.</p>
             <span class="inline-block mt-2 text-xs font-mono bg-indigo-950 text-indigo-300 border border-indigo-800 px-2 py-0.5 rounded">Cloud Storage</span>
           </div>
         </div>
         <div class="text-right">
-          <span class="text-xs text-slate-500 line-through block">₹4,000</span>
-          <span class="font-mono font-semibold text-emerald-400 text-sm whitespace-nowrap">₹3,600</span>
+          <span class="text-xs text-slate-500 line-through block">₹4,444</span>
+          <span class="font-mono font-semibold text-emerald-400 text-sm whitespace-nowrap">₹4,000</span>
         </div>
       </div>
 
       <!-- Item 7 -->
       <div class="bg-slate-800 border border-slate-700 rounded-xl p-4 flex justify-between items-start">
         <div class="flex gap-3">
-          <input type="checkbox" id="api7" value="2250" onchange="calculateTotal()" class="api-checkbox mt-1 w-4 h-4 text-indigo-600 bg-slate-900 border-slate-700 rounded">
+          <input type="checkbox" id="api7" value="2500" onchange="calculateTotal()" class="api-checkbox mt-1 w-4 h-4 text-indigo-600 bg-slate-900 border-slate-700 rounded">
           <div>
-            <label for="api7" class="font-semibold text-white">SendGrid Transactional Email API</label>
+            <label for="api7" class="font-semibold text-white cursor-pointer">SendGrid Transactional Email API</label>
             <p class="text-xs text-slate-400 mt-1">Delivery of purchase orders, vendor invoices & receipts.</p>
             <span class="inline-block mt-2 text-xs font-mono bg-indigo-950 text-indigo-300 border border-indigo-800 px-2 py-0.5 rounded">Email Gateway</span>
           </div>
         </div>
         <div class="text-right">
-          <span class="text-xs text-slate-500 line-through block">₹2,500</span>
-          <span class="font-mono font-semibold text-emerald-400 text-sm whitespace-nowrap">₹2,250</span>
+          <span class="text-xs text-slate-500 line-through block">₹2,778</span>
+          <span class="font-mono font-semibold text-emerald-400 text-sm whitespace-nowrap">₹2,500</span>
         </div>
       </div>
 
       <!-- Item 8 -->
       <div class="bg-slate-800 border border-slate-700 rounded-xl p-4 flex justify-between items-start">
         <div class="flex gap-3">
-          <input type="checkbox" id="api8" value="2700" onchange="calculateTotal()" class="api-checkbox mt-1 w-4 h-4 text-indigo-600 bg-slate-900 border-slate-700 rounded">
+          <input type="checkbox" id="api8" value="3000" onchange="calculateTotal()" class="api-checkbox mt-1 w-4 h-4 text-indigo-600 bg-slate-900 border-slate-700 rounded">
           <div>
-            <label for="api8" class="font-semibold text-white">Mixpanel & Google Analytics Data API</label>
+            <label for="api8" class="font-semibold text-white cursor-pointer">Mixpanel & Google Analytics Data API</label>
             <p class="text-xs text-slate-400 mt-1">Tracks buyer conversion rates & store navigation.</p>
             <span class="inline-block mt-2 text-xs font-mono bg-indigo-950 text-indigo-300 border border-indigo-800 px-2 py-0.5 rounded">Analytics</span>
           </div>
         </div>
         <div class="text-right">
-          <span class="text-xs text-slate-500 line-through block">₹3,000</span>
-          <span class="font-mono font-semibold text-emerald-400 text-sm whitespace-nowrap">₹2,700</span>
+          <span class="text-xs text-slate-500 line-through block">₹3,333</span>
+          <span class="font-mono font-semibold text-emerald-400 text-sm whitespace-nowrap">₹3,000</span>
         </div>
       </div>
 
       <!-- Item 9 -->
       <div class="bg-slate-800 border border-slate-700 rounded-xl p-4 flex justify-between items-start">
         <div class="flex gap-3">
-          <input type="checkbox" id="api9" value="5400" onchange="calculateTotal()" class="api-checkbox mt-1 w-4 h-4 text-indigo-600 bg-slate-900 border-slate-700 rounded">
+          <input type="checkbox" id="api9" value="6000" onchange="calculateTotal()" class="api-checkbox mt-1 w-4 h-4 text-indigo-600 bg-slate-900 border-slate-700 rounded">
           <div>
-            <label for="api9" class="font-semibold text-white">Algolia AI Product Recommendation API</label>
+            <label for="api9" class="font-semibold text-white cursor-pointer">Algolia AI Product Recommendation API</label>
             <p class="text-xs text-slate-400 mt-1">AI-driven smart product suggestions for buyers.</p>
             <span class="inline-block mt-2 text-xs font-mono bg-indigo-950 text-indigo-300 border border-indigo-800 px-2 py-0.5 rounded">AI Engine</span>
           </div>
         </div>
         <div class="text-right">
-          <span class="text-xs text-slate-500 line-through block">₹6,000</span>
-          <span class="font-mono font-semibold text-emerald-400 text-sm whitespace-nowrap">₹5,400</span>
+          <span class="text-xs text-slate-500 line-through block">₹6,667</span>
+          <span class="font-mono font-semibold text-emerald-400 text-sm whitespace-nowrap">₹6,000</span>
         </div>
       </div>
 
       <!-- Item 10 -->
       <div class="bg-slate-800 border border-slate-700 rounded-xl p-4 flex justify-between items-start">
         <div class="flex gap-3">
-          <input type="checkbox" id="api10" value="4950" onchange="calculateTotal()" class="api-checkbox mt-1 w-4 h-4 text-indigo-600 bg-slate-900 border-slate-700 rounded">
+          <input type="checkbox" id="api10" value="5500" onchange="calculateTotal()" class="api-checkbox mt-1 w-4 h-4 text-indigo-600 bg-slate-900 border-slate-700 rounded">
           <div>
-            <label for="api10" class="font-semibold text-white">KYC & Vendor Identity Verification API</label>
+            <label for="api10" class="font-semibold text-white cursor-pointer">KYC & Vendor Identity Verification API</label>
             <p class="text-xs text-slate-400 mt-1">Automated business document verification for vendor onboarding.</p>
             <span class="inline-block mt-2 text-xs font-mono bg-indigo-950 text-indigo-300 border border-indigo-800 px-2 py-0.5 rounded">Security API</span>
           </div>
         </div>
         <div class="text-right">
-          <span class="text-xs text-slate-500 line-through block">₹5,500</span>
-          <span class="font-mono font-semibold text-emerald-400 text-sm whitespace-nowrap">₹4,950</span>
+          <span class="text-xs text-slate-500 line-through block">₹6,111</span>
+          <span class="font-mono font-semibold text-emerald-400 text-sm whitespace-nowrap">₹5,500</span>
         </div>
       </div>
 
@@ -245,7 +245,7 @@
       <div class="border-t border-slate-700 pt-4 space-y-2 text-sm">
         <div class="flex justify-between text-slate-400">
           <span>Subtotal</span>
-          <span id="subtotalText" class="font-mono">₹43,398</span>
+          <span id="subtotalText" class="font-mono">₹44,999</span>
         </div>
         <div class="flex justify-between text-xs text-amber-400 font-semibold">
           <span>Promo Discount Applied</span>
@@ -253,7 +253,7 @@
         </div>
         <div class="flex justify-between text-base font-bold text-white border-t border-slate-700 pt-2 mt-2">
           <span>Total Investment</span>
-          <span id="totalText" class="font-mono text-emerald-400">₹43,398</span>
+          <span id="totalText" class="font-mono text-emerald-400">₹44,999</span>
         </div>
       </div>
 
@@ -318,7 +318,7 @@
 
       <div class="bg-slate-800 p-3 rounded-xl text-center border border-slate-700">
         <span class="text-xs text-slate-400">Total Payable Amount</span>
-        <h2 id="simulatorAmount" class="text-2xl font-mono font-bold text-emerald-400 mt-0.5">₹43,398</h2>
+        <h2 id="simulatorAmount" class="text-2xl font-mono font-bold text-emerald-400 mt-0.5">₹44,999</h2>
       </div>
 
       <div id="pinStep" class="space-y-4">
@@ -425,11 +425,11 @@
 
   <script>
     lucide.createIcons();
-    let currentTotal = 43398;
+    let currentTotal = 44999;
     let selectedGatewayName = "Paytm";
 
     function calculateTotal() {
-      let total = 27000;
+      let total = 0;
       document.querySelectorAll('.api-checkbox:checked').forEach(cb => {
         total += parseInt(cb.value);
       });
@@ -456,6 +456,10 @@
 
     function openPaymentGatewayModal() {
       calculateTotal();
+      if (currentTotal === 0) {
+        alert("Please select at least one module or API package before proceeding to checkout.");
+        return;
+      }
       document.getElementById('gatewayModal').classList.remove('hidden');
     }
 
@@ -536,23 +540,19 @@
       document.getElementById('invId').innerText = 'INV-' + Math.floor(10000 + Math.random() * 90000);
 
       const tbody = document.getElementById('invoiceItems');
-      tbody.innerHTML = `
-        <tr>
-          <td class="py-2 font-medium">Multi-Vendor E-Commerce Core Framework License</td>
-          <td class="py-2 text-right font-mono">27,000</td>
-        </tr>
-      `;
+      tbody.innerHTML = '';
 
       const apiCheckboxes = [
-        {id: 'api2', name: 'APINepal Gateway API (eSewa, Khalti, Fonepay, UPI)', price: '4,499'},
-        {id: 'api3', name: 'Sparrow SMS API Package (5,000 OTP Credits)', price: '4,500'},
-        {id: 'api4', name: 'Meilisearch Cloud Search Engine License', price: '4,050'},
-        {id: 'api5', name: 'Google Maps API Routing & Location Integration', price: '3,150'},
-        {id: 'api6', name: 'AWS S3 & CloudFront Media Storage API', price: '3,600'},
-        {id: 'api7', name: 'SendGrid Transactional Email API', price: '2,250'},
-        {id: 'api8', name: 'Mixpanel & Google Analytics Data API', price: '2,700'},
-        {id: 'api9', name: 'Algolia AI Product Recommendation API', price: '5,400'},
-        {id: 'api10', name: 'KYC & Vendor Identity Verification API', price: '4,950'}
+        {id: 'api1', name: 'Multi-Vendor E-Commerce Core Framework License', price: '27,000'},
+        {id: 'api2', name: 'APINepal Gateway API (eSewa, Khalti, Fonepay, UPI)', price: '4,999'},
+        {id: 'api3', name: 'Sparrow SMS API Package (5,000 OTP Credits)', price: '5,000'},
+        {id: 'api4', name: 'Meilisearch Cloud Search Engine License', price: '4,500'},
+        {id: 'api5', name: 'Google Maps API Routing & Location Integration', price: '3,500'},
+        {id: 'api6', name: 'AWS S3 & CloudFront Media Storage API', price: '4,000'},
+        {id: 'api7', name: 'SendGrid Transactional Email API', price: '2,500'},
+        {id: 'api8', name: 'Mixpanel & Google Analytics Data API', price: '3,000'},
+        {id: 'api9', name: 'Algolia AI Product Recommendation API', price: '6,000'},
+        {id: 'api10', name: 'KYC & Vendor Identity Verification API', price: '5,500'}
       ];
 
       apiCheckboxes.forEach(item => {
