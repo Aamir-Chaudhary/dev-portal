@@ -34,7 +34,7 @@
   <!-- Offer Ticker Bar -->
   <div class="bg-gradient-to-r from-amber-600 via-rose-600 to-amber-600 text-white text-center py-2 px-4 text-xs font-bold flex items-center justify-center gap-2 shadow-lg">
     <i data-lucide="zap" class="w-4 h-4 animate-bounce"></i>
-    <span>LIMITED OFFER: 10% DISCOUNT ON ALL API LICENSES ENDS TOMORROW AT 12:00 PM!</span>
+    <span>OFFER EXTENDED: 10% DISCOUNT ON ALL API LICENSES ENDS TONIGHT AT MIDNIGHT!</span>
     <span class="bg-black/30 font-mono px-2 py-0.5 rounded" id="navTimer">00h 00m 00s</span>
   </div>
 
@@ -84,10 +84,10 @@
     <div class="bg-gradient-to-r from-amber-950/80 via-rose-950/80 to-slate-800 border border-amber-500/40 p-6 rounded-2xl space-y-3 relative overflow-hidden">
       <div class="flex items-center gap-2 text-amber-400 font-bold text-lg">
         <i data-lucide="percent" class="w-6 h-6"></i>
-        <span>10% Limited Promotional Discount Active!</span>
+        <span>10% Promo Extended Till Tonight!</span>
       </div>
       <p class="text-sm text-slate-300 max-w-2xl">
-        All API subscriptions, gateway licenses, and core infrastructure packages are currently reduced by <strong>10%</strong> off standard rates. This special deployment rate expires tomorrow at 12:00 PM (Noon). Order today to lock in lower costs before regular prices apply!
+        Due to high demand, the <strong>10% discount</strong> on all API subscriptions and core licenses has been <strong>extended until 12:00 Midnight tonight</strong>. Order now before standard rates take effect tomorrow!
       </p>
       <div class="pt-2">
         <a href="catalog.html" class="inline-flex items-center gap-2 text-xs font-bold text-slate-900 bg-amber-400 hover:bg-amber-300 px-4 py-2 rounded-lg transition shadow-md">
@@ -108,20 +108,20 @@
       </div>
 
       <div class="space-y-1">
-        <span class="bg-amber-500 text-slate-950 text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider">SPECIAL PROMOTIONAL OFFER</span>
-        <h3 class="text-2xl font-black text-white pt-2">10% Off All APIs!</h3>
-        <p class="text-xs text-slate-300">All module prices in the store reflect a 10% discount from regular rates.</p>
+        <span class="bg-amber-500 text-slate-950 text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider">OFFER EXTENDED</span>
+        <h3 class="text-2xl font-black text-white pt-2">10% Off Extended Till Midnight!</h3>
+        <p class="text-xs text-slate-300">Special deployment rates are valid until tonight at 12:00 Midnight.</p>
       </div>
 
       <!-- Live Countdown Box -->
       <div class="bg-slate-900 p-4 rounded-xl border border-slate-700 space-y-1">
-        <p class="text-xs text-amber-400 font-semibold uppercase tracking-widest">Offer Ends Tomorrow At:</p>
+        <p class="text-xs text-amber-400 font-semibold uppercase tracking-widest">Offer Expires Tonight In:</p>
         <div id="popupTimer" class="text-2xl font-mono font-bold text-emerald-400">00h : 00m : 00s</div>
-        <p class="text-[10px] text-slate-500">Timer ends tomorrow at 12:00 PM (Noon)</p>
+        <p class="text-[10px] text-slate-500">Timer ends tonight at 12:00 Midnight</p>
       </div>
 
       <p class="text-xs text-slate-400">
-        Execute your platform infrastructure purchase before standard rates take effect.
+        Execute your platform infrastructure purchase before standard rates take effect tomorrow.
       </p>
 
       <div class="flex gap-3 pt-2">
@@ -155,14 +155,20 @@
   <script>
     lucide.createIcons();
 
-    function startTomorrowTimer() {
+    // Today Midnight Timer (24:00:00)
+    function startMidnightTimer() {
       function updateTimer() {
         const now = new Date();
-        const target = new Date();
-        target.setDate(target.getDate() + 1);
-        target.setHours(12, 0, 0, 0);
+        const midnight = new Date();
+        midnight.setHours(24, 0, 0, 0);
 
-        const diff = target - now;
+        const diff = midnight - now;
+
+        if (diff <= 0) {
+          document.getElementById('popupTimer').innerText = "00h : 00m : 00s";
+          document.getElementById('navTimer').innerText = "00h 00m 00s";
+          return;
+        }
 
         const hours = Math.floor(diff / (1000 * 60 * 60));
         const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
@@ -178,7 +184,7 @@
       setInterval(updateTimer, 1000);
     }
 
-    startTomorrowTimer();
+    startMidnightTimer();
 
     function closeOfferModal() {
       document.getElementById('offerModal').classList.add('hidden');
